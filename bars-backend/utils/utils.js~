@@ -1,0 +1,10 @@
+exports.wrappedJoin = (array) => {
+    var values = array.map((value) => {
+        // Wrap each string of the array with quotes
+        if (typeof value === 'string') {    
+            return "'" + value + "'";
+        } else {
+            return value;
+        }
+    }).join(",");
+}

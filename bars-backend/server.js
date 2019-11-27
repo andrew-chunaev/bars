@@ -6,17 +6,24 @@ app.use( bodyParser.json() );
 
 var DocController = require('./controllers/docController.js');
 
-app.get('/', (req, res) => {
+app.get('/doc', (req, res) => {
     DocController.list(req, res);
+});
+
+app.get('/doc/:id', (req, res) => {
+    DocController.get(req, res);
 });
 
 app.post('/doc', (req, res) => {
     DocController.create(req, res);
 });
 
+app.put('/doc/:id', (req, res) => {
+    DocController.update(req, res);
+});
+
 app.delete('/doc/:id', (req, res) => {
     DocController.delete(req, res);
-    return res;
 });
 
 
