@@ -10,3 +10,13 @@ exports.get = function(query, callback) {
         })
         .finally(db.$pool.end);
 }
+
+exports.create = function(table, columns, values) {
+    db.none('insert into ' + table + '(' + columns + ') + values(' + values +')')
+        .then(() => {
+            // success;
+        })
+        .catch(error => {
+            // error;
+        });
+}

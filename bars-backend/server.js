@@ -7,4 +7,8 @@ app.get('/', (req, res) => {
     DocController.list(req, res);
 });
 
-app.listen(port, () => console.log(`Hello world app listening on port ${port}!`))
+app.post('/doc', (req, res) => {
+    DocController.create(req, res);
+});
+
+app.listen(port, () => console.log(`App started on port ${port}!`))
