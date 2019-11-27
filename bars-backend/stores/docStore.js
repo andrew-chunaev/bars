@@ -5,7 +5,9 @@ exports.getAll = function(callback) {
 }
 
 exports.create = function(doc, success) {
-    console.log("doc from store: ", doc);
     QueryExecutor.create('doc', doc, success);
 }
 
+exports.delete = (id, success) => {
+    QueryExecutor.delete('doc', id, success);
+}

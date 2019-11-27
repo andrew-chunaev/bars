@@ -11,8 +11,14 @@ app.get('/', (req, res) => {
 });
 
 app.post('/doc', (req, res) => {
-    console.log(req.body);
     DocController.create(req, res);
 });
+
+app.delete('/doc/:id', (req, res) => {
+    DocController.delete(req, res);
+    return res;
+});
+
+
 
 app.listen(port, () => console.log(`App started on port ${port}!`))

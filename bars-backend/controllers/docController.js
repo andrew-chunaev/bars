@@ -9,10 +9,10 @@ exports.list = function(req, res) {
 }
 
 exports.create = function(req, res) {
-    var doc = req.body;
-    console.log("doc from controller: ", doc);
-    DocStore.create(doc, function() {
-        res.send('OK');
+    var response = res;
+    DocStore.create(req.body, function() {
+        console.log('Success is executed');
+        response.status(200).send('OK');
     });
 }
 
@@ -20,6 +20,9 @@ exports.update = function(req, res) {
     
 }
 
-exports.del = function(req, res) {
-    
+exports.delete = (req, res) => {
+    var response = res;
+    DocStore.delete(req.params.id,() => {
+        res.status(200).send('OK');
+    });
 }

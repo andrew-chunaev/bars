@@ -7,8 +7,8 @@ exports.get = function(query, callback) {
         })
         .catch(error => {
             console.log('ERROR:', error); // print the error;
-        })
-        .finally(db.$pool.end);
+        });
+        //.finally(db.$pool.end);
 }
 
 exports.create = function(table, object, success) {
@@ -20,15 +20,24 @@ exports.create = function(table, object, success) {
         } else {
             return value;
         }
-}).join(",");
+    }).join(",");
     var query = 'insert into ' + table + '(' + Object.keys(object).join() + ') values(' + values +')';
     console.log("Query is: ", query);
     db.none(query)
         .then(() => {
-            success;
+            success();
         })
         .catch(error => {
             console.log('ERROR:', error); // print the error;
-        })
-        .finally(db.$pool.end);
+        });
 }
+
+exports.delete = (table, id, success) => {
+    db.none('delete from ' + table + ' where id=' + id)
+        .then(() => {
+            success();
+        })
+        .catch(error => {
+            console.log('ERROR:', error); // print the error;
+        });
+}    
