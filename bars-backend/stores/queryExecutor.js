@@ -11,12 +11,24 @@ exports.get = function(query, callback) {
         .finally(db.$pool.end);
 }
 
-exports.create = function(table, columns, values) {
-    db.none('insert into ' + table + '(' + columns + ') + values(' + values +')')
+exports.create = function(table, object, success) {
+    console.log("doc \' from qe: ", object);
+    var values = Object.values(object).map(function(value){
+        // Wrap each element of the dates array with quotes
+        if (typeof value === 'string') {    
+            return "'" + value + "'";
+        } else {
+            return value;
+        }
+}).join(",");
+    var query = 'insert into ' + table + '(' + Object.keys(object).join() + ') values(' + values +')';
+    console.log("Query is: ", query);
+    db.none(query)
         .then(() => {
-            // success;
+            success;
         })
         .catch(error => {
-            // error;
-        });
+            console.log('ERROR:', error); // print the error;
+        })
+        .finally(db.$pool.end);
 }

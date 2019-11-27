@@ -9,7 +9,11 @@ exports.list = function(req, res) {
 }
 
 exports.create = function(req, res) {
-       
+    var doc = req.body;
+    console.log("doc from controller: ", doc);
+    DocStore.create(doc, function() {
+        res.send('OK');
+    });
 }
 
 exports.update = function(req, res) {
