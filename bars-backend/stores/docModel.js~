@@ -1,0 +1,23 @@
+exports.setDb = function(db) {
+    exports.db = db;
+}
+
+exports.getAll = function(docs) {
+    exports.db.any('select * from doc')
+        .then(data => {
+            exports.data = data; // print data;
+            //console.log('DOCS from model: ', docs);
+        })
+        .catch(error => {
+            console.log('ERROR:', error); // print the error;
+        })
+        //.finally(exports.db.$pool.end);
+}
+
+exports.getData = function() {
+    return exports.data();
+}
+
+//exports.releaseData = function() {
+  //  exports.db.$pool.end;   
+//}

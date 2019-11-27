@@ -1,0 +1,30 @@
+const express = require('express');
+const app = express();
+const port = 3000;
+const promise = require('bluebird');
+var DocController = require('./controllers/docController.js');
+
+const initOptions = {
+    promiseLib: promise 
+};
+
+const pgp = require('pg-promise')(initOptions);
+
+// Database connection details;
+const cn = {
+    host: 'localhost', 
+    port: 5432, 
+    database: 'bars',
+    user: 'bars',
+    password: 'bars'
+};
+
+const db = pgp(cn); // database instance;
+
+DocController.setDb(db);
+
+app.get('/', (req, res) => {
+    DocController.list(req, res);
+});
+
+app.listen(port, () => console.log(`Hello world app listening on port ${port}!`))

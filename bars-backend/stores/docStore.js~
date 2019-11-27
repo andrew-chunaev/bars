@@ -1,0 +1,21 @@
+var db = require('./database.js');
+
+exports.getAll = function(callback) {
+    db.any('select * from doc')
+        .then(data => {
+            callback(data); // print data;
+            //console.log('DOCS from model: ', exports.data);
+        })
+        .catch(error => {
+            console.log('ERROR:', error); // print the error;
+        })
+        .finally(db.$pool.end);
+}
+
+exports.getData = function() {
+    return exports.data();
+}
+
+//exports.releaseData = function() {
+  //  exports.db.$pool.end;   
+//}

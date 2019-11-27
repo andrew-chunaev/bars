@@ -1,0 +1,16 @@
+{
+  "name": "bars",
+  "version": "0.0.1",
+  "description": "test task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "chunaev",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.7.1",
+    "express": "^4.17.1",
+    "pg-promise": "^10.2.1"
+  }
+}
