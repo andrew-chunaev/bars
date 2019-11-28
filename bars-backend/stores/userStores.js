@@ -8,3 +8,7 @@ exports.create = (newUser, success) => {
     QueryExecutor.createWithResult(tableName, newUser, success);
 }
 
+exports.findByUsernameAndPassword = (username, password, success) => {
+    QueryExecutor.get(`select * from ${tableName} where name=\'${username}\' and password=\'${password}\'`, success);
+}
+

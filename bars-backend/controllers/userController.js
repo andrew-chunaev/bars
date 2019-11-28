@@ -24,20 +24,25 @@ exports.register = (req, res) => {
 
 exports.login = (req, res) => {
     if(!req.body.name || !req.body.password){
-        res.status(401);
+        res.status(400);
         res.send("Please enter both name and password");
     } else {
-        Users.filter(function(user){
-            if(user.id === req.body.id && user.password === req.body.password){
-                req.session.user = user;
-                res.redirect('/doc');
+        var request = req;
+        var response = res;
+        UserStore.findByUsernameAndPassword(req.body.name, req.body.password, result => {
+            console.log(result);
+            if (result.length == 0) {
+                response.status("401");
+                response.send("Invalid credentials!");
+            } else {
+                request.session.userId = result[0].id;
+                response.redirect('/doc');
             }
-        });
-        res.render('login', {message: "Invalid credentials!"});
+        });               
     }
 }
 
 exports.logout = (req, res) => {
     req.session.destroy(() => {});
-    res.redirect('/login');
+    res.redirect('/doc');
 }
