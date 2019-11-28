@@ -37,6 +37,10 @@ app.get('/doc', (req, res) => {
     DocController.list(req, res);
 });
 
+app.get('/doc/currentUser', (req, res) => {
+    DocController.getByCurrentUser(req, res);
+});
+
 app.get('/doc/:id', (req, res) => {
     DocController.get(req, res);
 });
@@ -52,7 +56,5 @@ app.put('/doc/:id', (req, res) => {
 app.delete('/doc/:id', (req, res) => {
     DocController.delete(req, res);
 });
-
-
 
 app.listen(port, () => console.log(`App started on port ${port}!`))
