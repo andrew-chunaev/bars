@@ -2,6 +2,7 @@ var db = require('./database.js');
 var Utils = require('../utils/utils.js');
 
 exports.get = (query, callback) => {
+    console.log("Query is: ", query);
     db.any(query)
         .then(data => {
             callback(data); 

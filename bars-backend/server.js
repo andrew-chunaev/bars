@@ -18,12 +18,19 @@ app.use(session({secret: "My secret key",
 var DocController = require('./controllers/docController.js');
 var UserController = require('./controllers/userController.js')
 
+app.get('/register', (req,res) => { 
+});
+
 app.post('/register', (req,res) => {
     UserController.register(req, res); 
 });
 
 app.post('/login', (req,res) => {
     UserController.login(req, res);
+});
+
+app.get('/logout', (req, res) => {
+    UserController.logout(req, res);
 });
 
 app.get('/doc', (req, res) => {
