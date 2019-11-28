@@ -2,9 +2,23 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const bodyParser = require('body-parser')
+const multer = require('multer');
+var upload = multer(); 
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
 app.use( bodyParser.json() );
+app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(upload.array());
+app.use(cookieParser());
+app.use(session({secret: "My secret key"}));
 
 var DocController = require('./controllers/docController.js');
+var UserController = require('./controllers/userController.js')
+
+app.post('/register', (req,res) => {
+    UserController.register(req, res); 
+});
 
 app.get('/doc', (req, res) => {
     DocController.list(req, res);
