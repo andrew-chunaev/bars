@@ -1,8 +1,9 @@
 var DocStore = require('../stores/docStore.js');
 
 exports.list = (req, res) => {
+    console.log("userId: ",req.session.userId);
     var response = res;
-    DocStore.getAll((data) => {
+    DocStore.getAll(data => {
         response.send(data);
     });
    
@@ -10,7 +11,7 @@ exports.list = (req, res) => {
 
 exports.get = (req, res) => {
     var response = res;
-    DocStore.getById(req.params.id, (data) => {
+    DocStore.getById(req.params.id, data => {
         response.send(data);
     });
    

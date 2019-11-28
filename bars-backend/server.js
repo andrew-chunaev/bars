@@ -11,13 +11,19 @@ app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(upload.array());
 app.use(cookieParser());
-app.use(session({secret: "My secret key"}));
+app.use(session({secret: "My secret key",
+                 resave: true,
+                 saveUninitialized: true}));
 
 var DocController = require('./controllers/docController.js');
 var UserController = require('./controllers/userController.js')
 
 app.post('/register', (req,res) => {
     UserController.register(req, res); 
+});
+
+app.post('/login', (req,res) => {
+    UserController.login(req, res);
 });
 
 app.get('/doc', (req, res) => {

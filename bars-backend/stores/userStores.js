@@ -1,10 +1,10 @@
 var QueryExecutor = require('./queryExecutor.js');
-
-exports.checkByUserName = (userName, success) = {
-    QueryExecutor.get('select count(id) from user where name=' + userName, success);
+const tableName = "users"
+exports.checkByUserName = (userName, success) => {
+    QueryExecutor.get(`select count(id) from ${tableName} where name=${userName}`, success);
 }
 
 exports.create = (newUser, success) => {
-    QueryExecutor.createWithResult('user', newUser, success);
+    QueryExecutor.createWithResult(tableName, newUser, success);
 }
 

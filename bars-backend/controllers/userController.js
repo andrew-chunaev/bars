@@ -6,13 +6,14 @@ exports.register = (req, res) => {
         res.send("Invalid details!");
     } else {
         //TODO check that user is exist in database
-        //var newUser = {name: req.body.name, password: req.body.password};
         var request = req;
         var response = res;
         UserStore.create(req.body, id => {
-            //request.session.user = newUser;
             request.session.userId = id;
             response.redirect('/doc');
-        }
+        });
     }
+}
+
+exports.login = (req, res) => {
 }
