@@ -29,7 +29,6 @@ exports.createWithResult = (table, object, success) => {
     var values = Utils.wrappedJoin(Object.values(object));
     var query = 'insert into ' + table + '(' + Object.keys(object).join()
         + ') values(' + values +') returning id';
-    console.log("Query is: ", query);
     db.one(query)
         .then(data => {
             success(data.id);
@@ -39,10 +38,7 @@ exports.createWithResult = (table, object, success) => {
         });
 }
 
-exports.update = (table, object, id, success) => {
-    var stringifiedEntries = Utils.wrappedEntries(Object.entries(object));
-    var query = 'update ' + table + ' set ' +
-        stringifiedEntries + ' where id=' + id;
+exports.update = (query, success) => {
     db.none(query)
         .then(() => {
             success();
@@ -52,8 +48,8 @@ exports.update = (table, object, id, success) => {
         });
 }
 
-exports.delete = (table, id, success) => {
-    db.none('delete from ' + table + ' where id=' + id)
+exports.delete = (query, success) => {
+    db.none(query)
         .then(() => {
             success();
         })

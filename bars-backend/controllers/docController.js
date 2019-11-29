@@ -9,6 +9,9 @@ exports.list = (req, res) => {
 
 exports.getByCurrentUser = (req, res) => {
     var response = res;
+    if (req.session.userId === 'undefined') {
+        response.render('/doc');
+    } 
     DocStore.getByUserId(req.session.userId, data => {
         response.send(data);
     });   
@@ -31,34 +34,29 @@ exports.create = (req, res) => {
     }
     DocStore.create(newDoc, () => {
         response.status(200);
-        if (newDoc.userId !== 'undefined') {
-            response.render('/doc/currentUser');
-        } else {
-            response.render('/doc');
-        }
+        response.redirect('/doc/currentUser');
     });
 }
 
 exports.update = (req, res) => {
     var response = res;
     var newDoc = req.body;
-    if (req.session.userId !== 'undefined') {
-        newDoc.userId = req.session.userId;
-    } 
-    DocStore.update(newDoc, req.params.id, () => {
-        response.status(200);
-        if (newDoc.userId !== 'undefined') {
-            response.render('/doc/currentUser');
-        } else {
-            response.render('/doc');
-        }
-    });
+    DocStore.update(newDoc,
+                    req.params.id,
+                    req.session.userId !== 'undefined' ? req.session.userId : 0,
+                    () => {
+                        response.status(200);
+                        response.redirect('/doc/currentUser');
+                    });
 }
 
 exports.delete = (req, res) => {
     var response = res;
-    DocStore.delete(req.params.id, () => {
-        response.status(200);
-        response.send('OK');
-    });
+    var request = req;
+    DocStore.delete(req.params.id,
+                    req.session.userId !== 'undefined' ? req.session.userId : 0,
+                    () => {
+                        response.status(200);
+                        response.redirect('/doc/currentUser');
+                    });
 }
