@@ -14,7 +14,8 @@ exports.register = (req, res) => {
             } else {
                 UserStore.create(req.body, id => {
                     request.session.userId = id;
-                    response.redirect('/doc/currentUser');
+                    response.status(201);
+                    response.send('');
                 });
             }
         });               
@@ -34,7 +35,8 @@ exports.login = (req, res) => {
                 response.send("Invalid credentials!");
             } else {
                 request.session.userId = result[0].id;
-                response.redirect('/doc/currentUser');
+                response.status(200);
+                response.send('');
             }
         });               
     }
@@ -42,5 +44,6 @@ exports.login = (req, res) => {
 
 exports.logout = (req, res) => {
     req.session.destroy(() => {});
-    res.redirect('/doc');
+    res.status(200);    
+    res.send('');
 }

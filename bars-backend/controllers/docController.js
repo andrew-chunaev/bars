@@ -9,9 +9,6 @@ exports.list = (req, res) => {
 
 exports.getByCurrentUser = (req, res) => {
     var response = res;
-    if (req.session.userId === 'undefined') {
-        response.render('/doc');
-    } 
     DocStore.getByUserId(req.session.userId, data => {
         response.send(data);
     });   
@@ -33,8 +30,8 @@ exports.create = (req, res) => {
         newDoc.userId = req.session.userId;
     }
     DocStore.create(newDoc, () => {
-        response.status(200);
-        response.redirect('/doc/currentUser');
+        response.status(201);
+        response.send('');
     });
 }
 
@@ -46,7 +43,7 @@ exports.update = (req, res) => {
                     req.session.userId !== 'undefined' ? req.session.userId : 0,
                     () => {
                         response.status(200);
-                        response.redirect('/doc/currentUser');
+                        response.send('');
                     });
 }
 
@@ -57,6 +54,6 @@ exports.delete = (req, res) => {
                     req.session.userId !== 'undefined' ? req.session.userId : 0,
                     () => {
                         response.status(200);
-                        response.redirect('/doc/currentUser');
+                        response.send('');
                     });
 }

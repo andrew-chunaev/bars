@@ -22,7 +22,6 @@ exports.update = (doc, id, userId, success) => {
     var stringifiedEntries = Utils.wrappedEntries(Object.entries(doc));
     var query = 'update ' + tableName + ' set ' + stringifiedEntries +
         ' where id=' + id + ' and userid=' + userId;
-    console.log(query);
     QueryExecutor.update(query, success);
 }
 
