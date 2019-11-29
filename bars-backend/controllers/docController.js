@@ -31,7 +31,11 @@ exports.create = (req, res) => {
     }
     DocStore.create(newDoc, () => {
         response.status(200);
-        response.send('OK');
+        if (newDoc.userId !== 'undefined') {
+            response.render('/doc/currentUser');
+        } else {
+            response.render('/doc');
+        }
     });
 }
 
@@ -43,7 +47,11 @@ exports.update = (req, res) => {
     } 
     DocStore.update(newDoc, req.params.id, () => {
         response.status(200);
-        response.send('OK');
+        if (newDoc.userId !== 'undefined') {
+            response.render('/doc/currentUser');
+        } else {
+            response.render('/doc');
+        }
     });
 }
 
