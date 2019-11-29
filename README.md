@@ -12,7 +12,11 @@ postgres=# grant all privileges on database bars to bars;
 ```
 dump.sql - дамп используемой БД для работы приложения.
 
-node server.js для запуска приложения.
+Само приложение в папке bars-backend,
+```
+node start
+```
+для его запуска.
 
 Примеры запросов:
 
