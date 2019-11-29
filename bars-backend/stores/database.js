@@ -8,7 +8,7 @@ const pgp = require('pg-promise')(initOptions);
 
 // Database connection details;
 const cn = {
-    host: 'localhost', 
+    host: '127.0.0.1', 
     port: 5432, 
     database: 'bars',
     user: 'bars',
